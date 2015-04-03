@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Peniel</title>
+  <title>Peniel SDA</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= yield :script %>
+  <%= yield :style %>
 </head>
-<body>
+<body id="body">
 
-<%= yield %>
+<div id="content">
+  <%= yield %>
+  <div id="params">
+    <%= debug(params) %>
+  </div>
+</div>
 
 </body>
 </html>
