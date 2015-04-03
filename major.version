@@ -1,0 +1,19 @@
+Version 0
+
+Description
+    Setting up the website before the proposal to the board.
+
+Goals
+    Strong Goals
+        Homepage
+            Set up the homepage with styles and main links.
+        Departments
+            Set up the architecture for the departments. Style is not as important.
+        Directory
+            Set up the architecture for the users section. Include styled user pages.
+    Medium Goals
+        AY Department
+            Set up the AY subpage.
+    Weak Goals
+        Map
+            Set up rudimentary map for users.
