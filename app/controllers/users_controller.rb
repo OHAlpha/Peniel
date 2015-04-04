@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :logged_in, only: [:new, :create, :show, :index, :edit, :update, :destroy, :logout]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -50,6 +51,15 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  def login
+  end
+  
+  def logout
+  end
+  
+  def signup
+  end
 
   # DELETE /users/1
   # DELETE /users/1.json
@@ -62,6 +72,17 @@ class UsersController < ApplicationController
   end
 
   private
+    def logged_in
+      if not session[:user_id].nil?
+        @current_user = User.find(session[:user_id])
+      else
+        respond_to do |format|
+          format.html { redirect_to login_users_path, notice: 'You must be logged in to view this page.' }
+          format.json { render inline '{error:"You must be logged in to view this page."}' }
+        end
+      end
+    end
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
