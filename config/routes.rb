@@ -22,4 +22,6 @@ Rails.application.routes.draw do
     end
   end
 
+  root 'application#home'
+
 end
