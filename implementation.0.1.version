@@ -1,0 +1,6 @@
+Version 0.1
+
+0.1.1
+    started homepage
+    created models for Address, Contact, Department, Member, Organization, Party, Person, Profile, Role, User
+    created models for PartyMembership, RoleAssignment
