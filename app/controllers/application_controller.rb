@@ -7,4 +7,24 @@ class ApplicationController < ActionController::Base
     
   end
   
+  def about
+    
+  end
+  
+  def news
+    
+  end
+  
+  def bible
+    
+  end
+  
+  def media
+    
+  end
+  
+  def contact
+    
+  end
+  
 end
