@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
 
+  get 'developer(/index(.:format))' => 'developers#portal'
+  
+  resources :developers
+  
+  resource :developer do
+    get 'index_table/:table' =>  :index_table
+    get 'clear_table/:table' =>  :clear_table
+    get 'remove_row/:table/:id' =>  :remove_row
+    get 'reset_titles'
+    get 'reset_suffixes'
+    get 'add_admin'
+  end
+
   resources :roles
 
   resources :members
@@ -16,10 +29,13 @@ Rails.application.routes.draw do
 
   resources :contacts
 
-  resources :users do
-    collection do
-      get 'login'
-    end
+  resources :users
+  
+  resource :user do
+    get 'login'
+    post 'signin'
+    get 'logout'
+    get 'signup'
   end
 
   root 'application#home'

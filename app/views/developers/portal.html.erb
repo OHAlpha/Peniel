@@ -1,0 +1,17 @@
+<h1>Developer Workbench</h1>
+
+<h2>Show Tables</h2>
+<% @tables.each do |table| %>
+  <p><%= link_to 'Show ' + table[:name] + ' table', '/developer/index_table/' + table[:url] %></p>
+<% end %>
+
+<h2>Clear Tables</h2>
+<% @tables.each do |table| %>
+  <p><%= link_to 'Clear ' + table[:name] + ' table', '/developer/clear_table/' + table[:url] %></p>
+<% end %>
+
+<h2><%= link_to 'Reset Titles', '/developer/reset_titles' %></h2>
+
+<h2><%= link_to 'Reset Suffixes', '/developer/reset_suffixes' %></h2>
+
+<h2><%= link_to 'Add Administrator', '/developer/add_admin' %></h2>

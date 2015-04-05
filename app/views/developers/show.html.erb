@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @developer.user_id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @developer.description %>
+</p>
+
+<p>
+  <strong>Permissions:</strong>
+  <%= @developer.permissions %>
+</p>
+
+<%= link_to 'Edit', edit_developer_path(@developer) %> |
+<%= link_to 'Back', developers_path %>

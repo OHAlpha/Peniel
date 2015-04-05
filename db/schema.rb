@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404033141) do
+ActiveRecord::Schema.define(version: 20150405194145) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "house_number", null: false
@@ -47,6 +47,14 @@ ActiveRecord::Schema.define(version: 20150404033141) do
   end
 
   add_index "departments", ["name"], name: "index_departments_on_name", unique: true
+
+  create_table "developers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "description"
+    t.integer  "permissions"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "members", force: :cascade do |t|
     t.integer  "person_id",  null: false
@@ -130,22 +138,34 @@ ActiveRecord::Schema.define(version: 20150404033141) do
 
   add_index "roles", ["name"], name: "index_roles_on_name", unique: true
 
-  create_table "users", force: :cascade do |t|
-    t.integer  "person_id",  null: false
-    t.string   "unom",       null: false
-    t.string   "email",      null: false
-    t.string   "passhash"
-    t.string   "salt"
-    t.integer  "name_t"
-    t.string   "name_f",     null: false
-    t.string   "name_m"
-    t.string   "name_l",     null: false
-    t.integer  "name_s"
-    t.integer  "status",     null: false
-    t.integer  "contact_id"
-    t.date     "birthdate"
+  create_table "suffixes", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "titles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.integer  "person_id",     null: false
+    t.string   "unom",          null: false
+    t.string   "email",         null: false
+    t.string   "salt"
+    t.integer  "name_t"
+    t.string   "name_f",        null: false
+    t.string   "name_m"
+    t.string   "name_l",        null: false
+    t.integer  "name_s"
+    t.integer  "status",        null: false
+    t.integer  "contact_id"
+    t.date     "birthdate"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "salt_passhash"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
