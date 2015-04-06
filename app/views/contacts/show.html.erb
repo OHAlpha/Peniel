@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Home address:</strong>
+  <%= @contact.home_address_id %>
+</p>
+
+<p>
+  <strong>Home phone:</strong>
+  <%= @contact.home_phone %>
+</p>
+
+<p>
+  <strong>Work phone:</strong>
+  <%= @contact.work_phone %>
+</p>
+
+<p>
+  <strong>Cell phone:</strong>
+  <%= @contact.cell_phone %>
+</p>
+
+<p>
+  <strong>Fax:</strong>
+  <%= @contact.fax %>
+</p>
+
+<%= link_to 'Edit', edit_contact_path(@contact) %> |
+<%= link_to 'Back', contacts_path %>
