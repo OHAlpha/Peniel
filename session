@@ -1,0 +1,20 @@
+#!/bin/bash
+
+nautilus . &
+
+gedit --new-window session &
+
+# Session notes
+# Branch: homepage
+
+as=app/assets
+jss=$as/javascripts
+css=$as/stylesheets
+vs=app/views
+lyv=$vs/layouts
+apv=$vs/application
+cf=config
+
+gedit --new-window $cf/routes.rb &
+
+gedit --new-window $apv/home.html.erb $lyv/application.html.erb $css/application.scss &
