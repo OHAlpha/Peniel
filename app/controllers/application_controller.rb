@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
     
   end
   
+  def resources
+    
+  end
+  
   def contact
     
   end

@@ -2,19 +2,65 @@
 
 nautilus . &
 
-gedit --new-window session &
-
 # Session notes
 # Branch: homepage
 
-as=app/assets
-jss=$as/javascripts
-css=$as/stylesheets
-vs=app/views
-lyv=$vs/layouts
-apv=$vs/application
+apl=application
+con=controller
+jscs=javascripts
+stss=stylesheets
+
+ecss=.css.erb
+ehtm=.html.erb
+ejvs=.js.erb
+
+a=app
+  as=$a/assets
+    jss=$as/$jscs
+    css=$as/$stss
+  cts=$a/${con}s
+  vs=$a/views
+    lyv=$vs/layouts
+    apv=$vs/$apl
 cf=config
+  izs=$cf/initializers
+
+if [ $# -gt 0 ]
+then
+
+case $1 in
+-s) # session
+
+gedit --new-window session &
+
+;;
+-r) # routes
 
 gedit --new-window $cf/routes.rb &
 
-gedit --new-window $apv/home.html.erb $lyv/application.html.erb $css/application.scss &
+;;
+-a) # application
+
+gedit --new-window $izs/assets.rb $apv/home$ehtm $lyv/$apl$ehtm $css/$apl.scss $css/goyim$ecss &
+
+;;
+-c) # controllers
+
+gedit --new-window $cts/*_$con.rb &
+
+;;
+*)
+;;
+esac
+
+else
+
+gedit --new-window session &
+
+gedit --new-window $cf/routes.rb &
+
+gedit --new-window $izs/assets.rb $apv/home$ehtm $lyv/$apl$ehtm $css/$apl.scss $css/goyim$ecss &
+
+gedit --new-window $cts/*$con.rb &
+
+fi
