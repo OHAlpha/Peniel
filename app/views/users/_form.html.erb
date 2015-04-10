@@ -10,9 +10,11 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= hidden_field_tag :signup, @signup.to_s %>
 
   <div class="field">
-    <%= f.label :unom %><br>
+    <%= f.label :unom, 'Username: ' %><br>
     <%= f.text_field :unom %>
   </div>
   <div class="field">
@@ -20,38 +22,34 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :passhash %><br>
-    <%= f.text_field :passhash %>
+    <%= f.label :passhash, 'Password: ' %><br>
+    <%= f.password_field :passhash %>
   </div>
   <div class="field">
-    <%= f.label :salt %><br>
-    <%= f.text_field :salt %>
+    <%= f.label :passhash_confirmation, 'Confirm Password: ' %><br>
+    <%= f.password_field :passhash_confirmation %>
   </div>
   <div class="field">
-    <%= f.label :name_t %><br>
-    <%= f.number_field :name_t %>
+    <%= f.label :name_t, 'Title: ' %><br>
+    <%= f.collection_select :name_t, Title.all, :id, :name %>
   </div>
   <div class="field">
-    <%= f.label :name_f %><br>
+    <%= f.label :name_f, 'First Name: ' %><br>
     <%= f.text_field :name_f %>
   </div>
   <div class="field">
-    <%= f.label :name_m %><br>
+    <%= f.label :name_m, 'Middle Name(s): ' %><br>
     <%= f.text_field :name_m %>
   </div>
   <div class="field">
-    <%= f.label :name_l %><br>
+    <%= f.label :name_l, 'Last Name: ' %><br>
     <%= f.text_field :name_l %>
   </div>
   <div class="field">
-    <%= f.label :name_s %><br>
-    <%= f.number_field :name_s %>
+    <%= f.label :name_s, 'Suffix: ' %><br>
+    <%= f.collection_select :name_s, Suffix.all, :id, :name %>
   </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.number_field :status %>
-  </div>
-  <div class="field">
+  <div class="field" style="visibility: true;">
     <%= f.label :contact_id %><br>
     <%= f.number_field :contact_id %>
   </div>
