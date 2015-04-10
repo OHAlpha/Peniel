@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Bible Lesson Categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bible_lesson_categories.each do |bible_lesson_category| %>
+      <tr>
+        <td><%= bible_lesson_category.name %></td>
+        <td><%= bible_lesson_category.description %></td>
+        <td><%= link_to 'Show', bible_lesson_category %></td>
+        <td><%= link_to 'Edit', edit_bible_lesson_category_path(bible_lesson_category) %></td>
+        <td><%= link_to 'Destroy', bible_lesson_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bible lesson category', new_bible_lesson_category_path %>

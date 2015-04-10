@@ -38,7 +38,7 @@
 				<div id="navigation-container" class="container">
 					<div id="navigation-container-row" class="row">
 						<div id="navigation-span" class="col-sm-12">
-							<a href="index.php" target="_self" class="navlinks">Home</a>  <a href="article.php?id=2" target="_self" class="navlinks">About&nbsp;Us</a> <a href="article.php?id=9" target="_self" class="navlinks">News</a> <a href="article.php?id=4" target="_self" class="navlinks">Bible Study</a> <a href="article.php?id=5" target="_self" class="navlinks">Media</a> <a href="article.php?id=12" class="navlinks">Resource Center</a> <a href="http://www.adventistbookcenter.com" target="_blank" class="navlinks">Bookstore</a> <a href="article.php?id=3" target="_self" class="navlinks">Contact&nbsp;Us</a>
+							<%= link_to 'Home', root_path, target: '_self', class: 'navlinks' %>  <%= link_to 'About Us', about_path, target: '_self', class: 'navlinks' %> <%= link_to 'News', news_path, target: '_self', class: 'navlinks' %> <%= link_to 'Bible Study', bible_path, target: '_self', class: 'navlinks' %> <%= link_to 'Media', media_path, target: '_self', class: 'navlinks' %> <%= link_to 'Resource Center', resources_path, target: '_self', class: 'navlinks' %> <a href="http://www.adventistbookcenter.com" target="_blank" class="navlinks">Bookstore</a> <%= link_to 'Contact Us', contact_path, target: '_self', class: 'navlinks' %>
 						</div><!-- end #navigation-span -->
 					</div><!-- end #navigation-container-row -->
 				</div><!-- end #navigation-container -->
@@ -47,21 +47,28 @@
 			</div><!-- end #banner -->
 
 <div id="content">
+		<div id="content-container" class="container">
+			<div id="content-container-row" class="row">
   <%= yield %>
+				<div class="col-sm-4">
+				    <div id="sidebar" class="col-sm-12"><!-- sidebar --><!--span class="DigestTitle">The Bible Says</span><br><table width=100% border=0><tr><td valign='top'><a href='http://www.e-gracenotes.org/article.php?id=2733' target='_top' class=FeedLink><img src='<%= asset_path 'no_headlights_thumb2.jpg' %>' border=0 nosave></a></a></td><td valign='top'><a href='http://www.e-gracenotes.org/article.php?id=2733' target='_top' class=FeedLink><span class='FeedTitle'>No Headlights!</span><br><span class='FeedDescription'>I was driving in a city a couple of hours from my home. I’d&nbsp;&raquo;</span></a></td></tr></table><table width=100% border=0><tr><td valign='top'><a href='http://www.e-gracenotes.org/article.php?id=95' target='_top' class=FeedLink><img src='<%= asset_path 'pump_fill_thumb2.jpg' %>' border=0 nosave></a></a></td><td valign='top'><a href='http://www.e-gracenotes.org/article.php?id=95' target='_top' class=FeedLink><span class='FeedTitle'>Drain and Fill</span><br><span class='FeedDescription'>Growing up my father owned a gas station and my two brothers and&nbsp;&raquo;</span></a></td></tr></table><table width=100% border=0><tr><td valign='top'><a href='http://www.e-gracenotes.org/article.php?id=3829' target='_top' class=FeedLink><img src='<%= asset_path 'embracing_struggle_thumb2.jpg' %>' border=0 nosave></a></a></td><td valign='top'><a href='http://www.e-gracenotes.org/article.php?id=3829' target='_top' class=FeedLink><span class='FeedTitle'>Embracing Struggle</span><br><span class='FeedDescription'>"We are pressed on every side by troubles, but we are not&nbsp;&raquo;</span></a></td></tr></table--></div>
+				</div><!-- end #content-right-span -->
+			</div><!-- end #content-container-row -->
+		</div><!-- end #content-container -->
+</div>
   <div id="params">
     <%= debug(params) %>
   </div>
-</div>
 		<div id="footer">
 			<div id="footer-container" class="container">
 				<div id="footer-container-row" class="row">
 					<div id="footer-span" class="col-sm-12">
 					  <br>
   <span class='footer'><b><%= link_to 'Peniel SDA', root_path %></b></span><br>
-  <span class='footer'><a href='article.php?id=11' class='footer'><%= link_to 'Members' Sign In', sign_in_user_path %></a></span><br>
-  <span class='footer'><a href='article.php?id=11' class='footer'><%= link_to 'Member Dashboard', user_path %></a></span><br>
-  <span class='footer'><a href='article.php?id=11' class='footer'><%= link_to 'Developer Dashboard', developer_path %></a></span><br>
-  <span class='footer'><a href='article.php?id=11' class='footer'><%= link_to 'Administrator Dashboard', administrator_path %></a></span>
+  <span class='footer'><% if @isuser %><%= link_to 'User Dashboard', dashboard_user_path, class: 'footer' %></span><br>
+  <span class='footer'><% if @ismaintainer %><%= link_to 'Maintainer Dashboard', dashboard_maintainer_path, class: 'footer' %><% end %></span><br>
+  <span class='footer'><% if @isdeveloper %><%= link_to 'Developer Dashboard', dashboard_developer_path, class: 'footer' %><% else %><%= link_to 'Become A Developer', apply_developer_path, class: 'footer' %><% end %></span><br>
+  <span class='footer'><% if @isadmin %><%= link_to 'Administrator Dashboard', dashboard_administrator_path, class: 'footer' %><% end %><% else %><%= link_to 'User Log In', login_user_path, class: 'footer' %><% end %></span>
 					</div><!-- end #footer-span -->
 				</div><!-- end #footer-container-row -->
 			</div><!-- end #footer-container -->

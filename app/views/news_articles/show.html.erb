@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @news_article.title %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @news_article.subject %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @news_article.category_id %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @news_article.author_id %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @news_article.tags %>
+</p>
+
+<p>
+  <strong>Article:</strong>
+  <%= @news_article.article %>
+</p>
+
+<%= link_to 'Edit', edit_news_article_path(@news_article) %> |
+<%= link_to 'Back', news_articles_path %>

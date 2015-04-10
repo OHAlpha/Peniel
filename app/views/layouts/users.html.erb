@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Peniel Seventh-day Adventist Church (Fort Myers)&nbsp;Fort Myers&nbsp;FL - Users</title>
+  <meta name="Description" content="Trying to find a church? Visit Peniel Seventh-day Adventist<font size=3><sup>&reg;</sup></font> Church (Fort Myers), your local Adventist church in Fort Myers FL and experience a Christian church community based on the beliefs of the Seventh day Adventist Church. Consider this SDA church your new Christian family.">
+  <meta name="KeyWords" content="Christian churches Fort Myers FL, Seventh-day Adventist<font size=3><sup>&reg;</sup></font> churches, seventh day adventists, 7th day adventists, local churches, adventism, community churches, sda churches, church directory, find a church">
+  <meta name="geo.position" content="26.647453;-81.858831">
+  <%= stylesheet_link_tag "goyim.css", media: "all" %>
+  <%= stylesheet_link_tag "bootstrap.min.css", media: "all" %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= yield :script %>
+  <%= yield :style %>
+</head>
+<body id="body" class="su_bootstrap_safe">
+	<div id="body">
+		<header>
+					<div id="header-container" class="container">
+				<div id="header-container-row" class="row">
+					<div id="sdaLogo" class="col-xs-1"></div><!-- end #logo -->
+					<div id="sitename" class="col-sm-7 col-xs-10">
+						<h1>Peniel Seventh-day Adventist<font size=3><sup>&reg;</sup></font> Church (Fort Myers)</h1>
+						<h2 class="sitenameSubtitle">2663 2nd St, Fort Myers, FL, 33916-2628</h2>
+					</div><!-- end #sitename -->
+					<div id="search" class="col-sm-4 col-xs-12"></div><!-- end #search -->
+				</div><!-- end #header-container-row -->
+			</div><!-- end #header-container -->
+				</header>
+			<div id="banner">
+		<div id="banner-container" class="container">
+			<div id="banner-container-row" class="row">
+				<div id="banner-image" class="col-sm-12 acc">
+				</div><!-- end #banner-image -->
+			</div><!-- end #banner-container-row -->
+		</div><!-- end #banner-container -->
+								<div id="navigation">
+				<div id="navigation-container" class="container">
+					<div id="navigation-container-row" class="row">
+						<div id="navigation-span" class="col-sm-12">
+							<%= link_to 'Home', root_path, target: '_self', class: 'navlinks' %>  <%= link_to 'About Us', about_path, target: '_self', class: 'navlinks' %> <%= link_to 'News', news_path, target: '_self', class: 'navlinks' %> <%= link_to 'Bible Study', bible_path, target: '_self', class: 'navlinks' %> <%= link_to 'Media', media_path, target: '_self', class: 'navlinks' %> <%= link_to 'Resource Center', resources_path, target: '_self', class: 'navlinks' %> <a href="http://www.adventistbookcenter.com" target="_blank" class="navlinks">Bookstore</a> <%= link_to 'Contact Us', contact_path, target: '_self', class: 'navlinks' %>
+						</div><!-- end #navigation-span -->
+					</div><!-- end #navigation-container-row -->
+				</div><!-- end #navigation-container -->
+			</div>
+		
+			</div><!-- end #banner -->
+
+<div id="content">
+  <%= yield %>
+</div>
+  <div id="params">
+    <%= debug(params) %>
+  </div>
+		<div id="footer">
+			<div id="footer-container" class="container">
+				<div id="footer-container-row" class="row">
+					<div id="footer-span" class="col-sm-12">
+					  <br>
+  <span class='footer'><b><%= link_to 'Peniel SDA', root_path %></b></span><br>
+  <span class='footer'><a href='article.php?id=11' class='footer'><%= link_to 'Members Sign In', login_user_path %></a></span><br>
+  <span class='footer'><a href='article.php?id=11' class='footer'><%= link_to 'Member Dashboard', user_path %></a></span><br>
+  <span class='footer'><a href='article.php?id=11' class='footer'><%= link_to 'Developer Dashboard', developer_path %></a></span><br>
+  <!-- span class='footer'><a href='article.php?id=11' class='footer'><!-- %= link_to 'Administrator Dashboard', administrator_path %></a></span -->
+					</div><!-- end #footer-span -->
+				</div><!-- end #footer-container-row -->
+			</div><!-- end #footer-container -->
+		</div><!-- end #footer -->
+	</div> <!-- close #body -->
+
+</body>
+</html>

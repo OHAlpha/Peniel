@@ -1,6 +1,12 @@
 class User < ActiveRecord::Base
 
   belongs_to :person
+  
+  has_one :maintainer
+  has_one :developer
+  has_one :administrator
+  has_one :profile
+  has_many: :relationships
 
   validates :salt, :status, presence: true
   validates :person, :unom, :email, :name_t, :name_f, :name_l, :name_s, :status, presence: true
@@ -11,22 +17,26 @@ class User < ActiveRecord::Base
   
   before_validation :mkvalatt, on: [ :create, :update ]
   
+  before_save :personify
+  
   def name
     ( self.name_t.nil? ? '' : self.name_t == 0 ? '' : Title.find(self.name_t).name + ' ' ) + self.name_f + ( self.name_m.nil? ? '' : self.name_m == '' ? '' : ' ' + self.name_m ) + ' ' + self.name_l + ( self.name_s.nil? ? '' : self.name_s == 0 ? '' : ' ' + Suffix.find(self.name_s).name )
   end
   
-  def personify
-    if self.person.nil?
-      self.person = Person.create( name: self.name, email: self.email )
-    else
-      person = Person.find(self.person_id)
-      if person.nil?
-        self.person = Person.create( name: self.name, email: self.email )
-      else
-        person.name = self.name
-        person.email = self.email
-      end
-    end
+  def member?
+    not self.person.member.nil?
+  end
+  
+  def maintainer?
+    not self.maintainer.nil?
+  end
+  
+  def developer?
+    not self.developer.nil?
+  end
+  
+  def admin?
+    not self.administrator.nil?
   end
   
   def gensalt
@@ -50,6 +60,20 @@ class User < ActiveRecord::Base
       end
       if self.name_s.nil?
         self.name_s = 1
+      end
+    end
+  
+    def personify
+      if self.person.nil?
+        self.person = Person.create( name: self.name, email: self.email )
+      else
+        person = Person.find(self.person_id)
+        if person.nil?
+          self.person = Person.create( name: self.name, email: self.email )
+        else
+          person.name = self.name
+          person.email = self.email
+        end
       end
     end
 

@@ -61,7 +61,7 @@ class DevelopersController < ApplicationController
     end
   end
 
-  def portal
+  def dashboard
     @tables = [ { name: 'Persons', url: 'persons' }, { name: 'Users', url: 'users' }, { name: 'Titles', url: 'titles' }, { name: 'Suffixes', url: 'suffixes' } ]
   end
 
@@ -106,10 +106,10 @@ class DevelopersController < ApplicationController
       end
     elsif params[:table] == 'users'
       @title = 'Users'
-      @cols = [ 'id', 'unom', 'email', 'name' ]
+      @cols = [ 'id', 'unom', 'email', 'name', 'person', 'status', 'permissions' ]
       @rows = []
       User.all.each do |u|
-        @rows << [ u.id.to_s, u.unom, u.email, u.name ]
+        @rows << [ u.id.to_s, u.unom, u.email, u.name, u.person, u.status, u.permissions ]
       end
     elsif params[:table] == 'titles'
       @title = 'Titles'
@@ -124,6 +124,48 @@ class DevelopersController < ApplicationController
       @rows = []
       Suffix.all.each do |s|
         @rows << [ s.id.to_s, s.name ]
+      end
+    elsif params[:table] == 'addresses'
+      @title = 'Addresses'
+      @cols = [ 'id', 'address1', 'address2' ]
+      @rows = []
+      Address.all.each do |a|
+        @rows << [ a.id.to_s, a.address1, a.address2 ]
+      end
+    elsif params[:table] == 'admins' or params[:table] == 'administrators'
+      @title = 'Administrators'
+      @cols = [ 'id', 'user_id', 'description', 'permissions' ]
+      @rows = []
+      Administrator.all.each do |a|
+        @rows << [ a.id.to_s, a.user_id, a.description, a.permissions ]
+      end
+    elsif params[:table] == 'developers'
+      @title = 'Developers'
+      @cols = [ 'id', 'user_id', 'description', 'permissions' ]
+      @rows = []
+      Developer.all.each do |a|
+        @rows << [ a.id.to_s, a.user_id, a.description, a.permissions ]
+      end
+    elsif params[:table] == 'maintainers'
+      @title = 'Maintainers'
+      @cols = [ 'id', 'user_id', 'description', 'permissions' ]
+      @rows = []
+      Maintainer.all.each do |a|
+        @rows << [ a.id.to_s, a.user_id, a.description, a.permissions ]
+      end
+    elsif params[:table] == 'parties'
+      @title = 'Parties'
+      @cols = [ 'id', 'name', 'description' ]
+      @rows = []
+      Party.all.each do |a|
+        @rows << [ a.id.to_s, a.name, a.description ]
+      end
+    elsif params[:table] == 'party_memberships'
+      @title = 'Party Memberships'
+      @cols = [ 'id', 'person', 'party' ]
+      @rows = []
+      PartyMembership.all.each do |a|
+        @rows << [ a.id.to_s, a.person.name, a.party.name ]
       end
     end
   end
@@ -150,6 +192,22 @@ class DevelopersController < ApplicationController
   end
 
   def add_admin
+    @user = User.new( unom: 'Developer', email: 'lnugentgibson@gmail.com', name_f: 'Admin', name_l: 'System', status: 0 )
+    @user.passhash = 'admintest'
+    @user.save
+    redirect_to '/developer/index_table/users'
+  end
+  
+  def show_session
+    @ds = {}
+    if not session.nil?
+      if not session[:person_id].nil?
+        @ds[:person_id] = session[:person_id]
+      end
+    end
+  end
+
+  def add_test_users
     @user = User.new( unom: 'Developer', email: 'lnugentgibson@gmail.com', name_f: 'Admin', name_l: 'System', status: 0 )
     @user.passhash = 'admintest'
     @user.personify

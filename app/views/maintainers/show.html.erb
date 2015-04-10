@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @maintainer.user_id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @maintainer.description %>
+</p>
+
+<p>
+  <strong>Permissions:</strong>
+  <%= @maintainer.permissions %>
+</p>
+
+<%= link_to 'Edit', edit_maintainer_path(@maintainer) %> |
+<%= link_to 'Back', maintainers_path %>

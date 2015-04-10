@@ -1,9 +1,9 @@
 #!/bin/bash
 
-nautilus . &
-
 # Session notes
 # Branch: homepage
+#
+#   Create commentable concern and apply to news articles' and bible lessons' models.
 
 apl=application
 con=controller
@@ -19,48 +19,50 @@ a=app
     jss=$as/$jscs
     css=$as/$stss
   cts=$a/${con}s
+  mds=$a/models
   vs=$a/views
     lyv=$vs/layouts
     apv=$vs/$apl
+    usv=$vs/users
 cf=config
   izs=$cf/initializers
+db=db
+  sma=$db/schema.rb
+  mgs=$db/migrate
 
 if [ $# -gt 0 ]
 then
-
-case $1 in
--s) # session
-
-gedit --new-window session &
-
-;;
--r) # routes
-
-gedit --new-window $cf/routes.rb &
-
-;;
--a) # application
-
-gedit --new-window $izs/assets.rb $apv/home$ehtm $lyv/$apl$ehtm $css/$apl.scss $css/goyim$ecss &
-
-;;
--c) # controllers
-
-gedit --new-window $cts/*_$con.rb &
-
-;;
-*)
-;;
-esac
-
+  for c
+  do
+    case $c in
+      -n) # nautilus
+        nautilus . &
+        ;;
+      -s) # session
+        gedit --new-window session &
+        ;;
+      -r) # routes
+        gedit --new-window $cf/routes.rb $sma &
+        ;;
+      -a) # application
+        gedit --new-window $izs/assets.rb $css/$apl.scss $css/goyim$ecss $lyv/$apl$ehtm $apv/*$ehtm &
+        ;;
+      -u) # users
+        gedit --new-window $lyv/users$ehtm $css/users.scss $usv/login$ehtm $usv/dashboard$ehtm $usv/index$ehtm &
+        ;;
+      -c) # controllers
+        gedit --new-window $cts/*_$con.rb &
+        ;;
+      -m) # models
+        gedit --new-window $mds/*.rb &
+        ;;
+      -g) # migrations
+        gedit --new-window $mgs/*.rb &
+        ;;
+      *)
+        ;;
+    esac
+  done
 else
-
-gedit --new-window session &
-
-gedit --new-window $cf/routes.rb &
-
-gedit --new-window $izs/assets.rb $apv/home$ehtm $lyv/$apl$ehtm $css/$apl.scss $css/goyim$ecss &
-
-gedit --new-window $cts/*$con.rb &
-
+  session -n -s -r -a -u -c -m -g
 fi
