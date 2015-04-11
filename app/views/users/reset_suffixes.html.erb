@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Suffixes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Suffix</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @suffixes.each do |suffix| %>
+      <tr>
+        <td><%= suffix.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

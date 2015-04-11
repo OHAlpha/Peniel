@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Unom:</strong>
+  <strong>Username:</strong>
   <%= @user.unom %>
 </p>
 
@@ -11,8 +11,8 @@
 </p>
 
 <p>
-  <strong>Passhash:</strong>
-  <%= @user.passhash %>
+  <strong>Salted Passhash:</strong>
+  <%= @user.salt_passhash %>
 </p>
 
 <p>
@@ -21,28 +21,28 @@
 </p>
 
 <p>
-  <strong>Name t:</strong>
-  <%= @user.name_t %>
+  <strong>Title:</strong>
+  <%= Title.find(@user.name_t).name %>
 </p>
 
 <p>
-  <strong>Name f:</strong>
+  <strong>First Name:</strong>
   <%= @user.name_f %>
 </p>
 
 <p>
-  <strong>Name m:</strong>
+  <strong>Middle Name:</strong>
   <%= @user.name_m %>
 </p>
 
 <p>
-  <strong>Name l:</strong>
+  <strong>Last Name:</strong>
   <%= @user.name_l %>
 </p>
 
 <p>
-  <strong>Name s:</strong>
-  <%= @user.name_s %>
+  <strong>Suffix:</strong>
+  <%= Suffix.find(@user.name_s).name %>
 </p>
 
 <p>
