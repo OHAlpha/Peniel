@@ -64,7 +64,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /user
   # PATCH/PUT /user.json
   def update
-    @user.personify
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -94,7 +93,7 @@ class UsersController < ApplicationController
       end
     end
     session[:person_id] = @user.person_id
-    redirect_to user_path
+    redirect_to dashboard_user_path
   end
   
   # GET /user/logout

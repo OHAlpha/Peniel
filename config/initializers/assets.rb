@@ -11,6 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( banner.jpg )
 Rails.application.config.assets.precompile += %w( logo.gif )
+Rails.application.config.assets.precompile += %w( clear.gif )
 Rails.application.config.assets.precompile += %w( no_headlights_thumb2.jpg )
 Rails.application.config.assets.precompile += %w( pump_fill_thumb2.jpg )
 Rails.application.config.assets.precompile += %w( embracing_struggle_thumb2.jpg )

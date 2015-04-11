@@ -2,11 +2,11 @@ Rails.application.routes.draw do
 
   root 'application#home'
   get 'about', to: 'application#about'
-  get 'news', to: 'application#about'
-  get 'bible', to: 'application#about'
-  get 'media', to: 'application#about'
-  get 'resources', to: 'application#about'
-  get 'contact', to: 'application#about'
+  get 'news', to: 'application#news'
+  get 'bible', to: 'application#bible'
+  get 'media', to: 'application#media'
+  get 'resources', to: 'application#resources'
+  get 'contact', to: 'application#contact'
 
   #get 'administrator(/dashboard(.:format))', to: 'administrators#dashboard', as: :administrator
   resources :administrators, only: [ :show, :index ]
@@ -17,16 +17,18 @@ Rails.application.routes.draw do
   #get 'developer(/dashboard(.:format))', to: 'developers#dashboard', as: :developer
   resources :developers, only: [ :show, :index ]
   resource :developer, only: [ :new, :create, :edit, :update, :destroy ] do
+    root to: :dashboard
     get 'dashboard'
     get 'apply'
     get 'request', on: :new
-    get 'index_table/:table', to: :index_table
-    get 'clear_table/:table', to: :clear_table
-    get 'remove_row/:table/:id', to: :remove_row
+    get 'index_table/:table', to: :index_table, as: :index_table
+    get 'clear_table/:table', to: :clear_table, as: :clear_table
+    get 'remove_row/:table/:id', to: :remove_row, as: :remove_row
     get 'reset_titles'
     get 'reset_suffixes'
     get 'add_admin'
-    get 'session'
+    get 'setup_env'
+    get 'show_session'
   end
 
   #get 'maintainer(/dashboard(.:format))', to: 'maintainers#dashboard', as: :maintainer
@@ -38,6 +40,7 @@ Rails.application.routes.draw do
   #get 'user(/dashboard(.:format))', to: 'users#dashboard', as: :user
   resources :users, only: [ :show, :index ]
   resource :user, only: [ :new, :create, :edit, :update, :destroy ] do
+    root to: :dashboard
     get 'dashboard'
     get 'login'
     post 'signin'

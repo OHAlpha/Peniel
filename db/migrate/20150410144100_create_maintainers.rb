@@ -1,7 +1,7 @@
 class CreateMaintainers < ActiveRecord::Migration
   def change
     create_table :maintainers do |t|
-      t.integer :user_id
+      t.integer :member_id
       t.text :description
       t.integer :permissions
 

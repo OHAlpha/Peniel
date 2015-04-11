@@ -17,7 +17,7 @@
       <% r.each do |e| %>
         <td><%= e %></td>
       <% end %>
-        <td><%= link_to 'Remove Row', '/administrator/remove_row/' + @table + '/' + r[0] %></td>
+        <td><%= link_to 'Remove Row', '/administrator/remove_row/' + @table + '/' + r[0].to_s %></td>
       </tr>
     <% end %>
   </tbody>

@@ -106,10 +106,10 @@ class DevelopersController < ApplicationController
       end
     elsif params[:table] == 'users'
       @title = 'Users'
-      @cols = [ 'id', 'unom', 'email', 'name', 'person', 'status', 'permissions' ]
+      @cols = User.icols
       @rows = []
-      User.all.each do |u|
-        @rows << [ u.id.to_s, u.unom, u.email, u.name, u.person, u.status, u.permissions ]
+      User.all.each do |a|
+        @rows << a.irow
       end
     elsif params[:table] == 'titles'
       @title = 'Titles'
@@ -127,17 +127,17 @@ class DevelopersController < ApplicationController
       end
     elsif params[:table] == 'addresses'
       @title = 'Addresses'
-      @cols = [ 'id', 'address1', 'address2' ]
+      @cols = Address.icols
       @rows = []
       Address.all.each do |a|
-        @rows << [ a.id.to_s, a.address1, a.address2 ]
+        @rows << a.irow
       end
     elsif params[:table] == 'admins' or params[:table] == 'administrators'
       @title = 'Administrators'
-      @cols = [ 'id', 'user_id', 'description', 'permissions' ]
+      @cols = [ 'id', 'member_id', 'description', 'permissions' ]
       @rows = []
       Administrator.all.each do |a|
-        @rows << [ a.id.to_s, a.user_id, a.description, a.permissions ]
+        @rows << [ a.id.to_s, a.member_id, a.description, a.permissions ]
       end
     elsif params[:table] == 'developers'
       @title = 'Developers'
@@ -148,10 +148,17 @@ class DevelopersController < ApplicationController
       end
     elsif params[:table] == 'maintainers'
       @title = 'Maintainers'
-      @cols = [ 'id', 'user_id', 'description', 'permissions' ]
+      @cols = [ 'id', 'member_id', 'description', 'permissions' ]
       @rows = []
       Maintainer.all.each do |a|
-        @rows << [ a.id.to_s, a.user_id, a.description, a.permissions ]
+        @rows << [ a.id.to_s, a.member_id, a.description, a.permissions ]
+      end
+    elsif params[:table] == 'members'
+      @title = 'Members'
+      @cols = [ 'id', 'person_id', 'since' ]
+      @rows = []
+      Member.all.each do |a|
+        @rows << [ a.id.to_s, a.person_id, a.since.to_s ]
       end
     elsif params[:table] == 'parties'
       @title = 'Parties'
@@ -171,31 +178,39 @@ class DevelopersController < ApplicationController
   end
 
   def reset_titles
-    Title.delete_all
-    Title.new( name: '' ).save
-    Title.new( name: 'Mr.' ).save
-    Title.new( name: 'Ms.' ).save
-    Title.new( name: 'Mrs.' ).save
+    settit
     respond_to do |format|
       format.html { redirect_to '/developer/index_table/titles', notice: 'titles reset.' }
     end
   end
 
   def reset_suffixes
-    Suffix.delete_all
-    Suffix.new( name: '' ).save
-    Suffix.new( name: 'Jr.' ).save
-    Suffix.new( name: 'Sr.' ).save
+    setsuf
     respond_to do |format|
       format.html { redirect_to '/developer/index_table/suffixes', notice: 'suffixes reset' }
     end
   end
 
   def add_admin
-    @user = User.new( unom: 'Developer', email: 'lnugentgibson@gmail.com', name_f: 'Admin', name_l: 'System', status: 0 )
-    @user.passhash = 'admintest'
-    @user.save
-    redirect_to '/developer/index_table/users'
+    respond_to do |format|
+      if addadm
+        format.html { redirect_to index_table_developer_path( 'admins' ), notice: 'admin added' }
+      else
+        format.html { redirect_to dashboard_developer_path, notice: @user.errors.to_s }
+      end
+    end
+  end
+  
+  def setup_env
+    settit
+    setsuf
+    respond_to do |format|
+      if addadm
+        format.html { redirect_to index_table_developer_path( 'admins' ), notice: 'admin added' }
+      else
+        format.html { redirect_to dashboard_developer_path, notice: @user.errors.to_s }
+      end
+    end
   end
   
   def show_session
@@ -216,6 +231,31 @@ class DevelopersController < ApplicationController
   end
 
   private
+
+    def settit
+      Title.delete_all
+      Title.new( name: '' ).save
+      Title.new( name: 'Mr.' ).save
+      Title.new( name: 'Ms.' ).save
+      Title.new( name: 'Mrs.' ).save
+    end
+
+    def setsuf
+      Suffix.delete_all
+      Suffix.new( name: '' ).save
+      Suffix.new( name: 'Jr.' ).save
+      Suffix.new( name: 'Sr.' ).save
+    end
+
+    def addadm
+      @user = User.new( unom: 'Developer', email: 'lnugentgibson@gmail.com', name_f: 'Admin', name_l: 'System', status: 0 )
+      @user.passhash = 'admintest'
+      if @user.save
+        Administrator.create( member: Member.create( person: @user.person, since: DateTime.now ), description: 'test admin' )
+      end
+      not @user.nil?
+    end
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_developer
       @developer = Developer.find(params[:id])

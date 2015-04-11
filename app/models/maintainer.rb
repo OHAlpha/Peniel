@@ -1,5 +1,5 @@
 class Maintainer < ActiveRecord::Base
 
-  belongs_to :user
+  belongs_to :member
   
 end

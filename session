@@ -3,7 +3,7 @@
 # Session notes
 # Branch: homepage
 #
-#   Create commentable concern and apply to news articles' and bible lessons' models.
+#   .
 
 apl=application
 con=controller
@@ -22,7 +22,10 @@ a=app
   mds=$a/models
   vs=$a/views
     lyv=$vs/layouts
+    adv=$vs/administrators
     apv=$vs/$apl
+    dvv=$vs/developers
+    mnv=$vs/maintainers
     usv=$vs/users
 cf=config
   izs=$cf/initializers
@@ -35,28 +38,37 @@ then
   for c
   do
     case $c in
-      -n) # nautilus
+      -nu) # nautilus
         nautilus . &
         ;;
-      -s) # session
+      -ss) # session
         gedit --new-window session &
         ;;
-      -r) # routes
+      -rt) # routes
         gedit --new-window $cf/routes.rb $sma &
         ;;
-      -a) # application
+      -ap) # application
         gedit --new-window $izs/assets.rb $css/$apl.scss $css/goyim$ecss $lyv/$apl$ehtm $apv/*$ehtm &
         ;;
-      -u) # users
-        gedit --new-window $lyv/users$ehtm $css/users.scss $usv/login$ehtm $usv/dashboard$ehtm $usv/index$ehtm &
+      -us) # users
+        gedit --new-window $css/users.scss $lyv/users$ehtm $usv/*$ehtm &
         ;;
-      -c) # controllers
+      -mn) # maintainers
+        gedit --new-window $css/maintainers.scss $lyv/maintainers$ehtm $mnv/*$ehtm &
+        ;;
+      -dv) # developers
+        gedit --new-window $css/developers.scss $lyv/developers$ehtm $dvv/*$ehtm &
+        ;;
+      -ad) # admins
+        gedit --new-window $css/administrators.scss $lyv/administrators$ehtm $adv/*$ehtm &
+        ;;
+      -ct) # controllers
         gedit --new-window $cts/*_$con.rb &
         ;;
-      -m) # models
+      -md) # models
         gedit --new-window $mds/*.rb &
         ;;
-      -g) # migrations
+      -mg) # migrations
         gedit --new-window $mgs/*.rb &
         ;;
       *)
@@ -64,5 +76,5 @@ then
     esac
   done
 else
-  session -n -s -r -a -u -c -m -g
+  session -nu -ss -rt -ap -us -mn -dv -ad -ct -md -mg
 fi

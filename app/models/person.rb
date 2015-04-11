@@ -1,11 +1,13 @@
 class Person < ActiveRecord::Base
   self.table_name = "persons"
   
-  after_save :repr
+  before_save :repr
   
   has_one :user
   has_one :member
+  belongs_to :party
   has_many :party_memberships
+  has_many :relationships
 
   validates :name, presence: true
   
@@ -20,7 +22,10 @@ class Person < ActiveRecord::Base
   protected
   
     def repr
-      PartyMembership.create( party: Party.create( name: self.name, description: 'Party for ' + self.name ), person: self )
+      if self.party_id.nil? or not Party.exists?(self.party_id)
+        self.party = Party.create( name: self.name, description: 'Party for ' + self.name )
+        PartyMembership.create( party: self.party, person: self )
+      end
     end
 
 end
