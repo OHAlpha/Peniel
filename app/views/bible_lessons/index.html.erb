@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Bible Lessons</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Subject</th>
+      <th>Category</th>
+      <th>Author</th>
+      <th>Tags</th>
+      <th>Lesson</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bible_lessons.each do |bible_lesson| %>
+      <tr>
+        <td><%= bible_lesson.title %></td>
+        <td><%= bible_lesson.subject %></td>
+        <td><%= bible_lesson.category_id %></td>
+        <td><%= bible_lesson.author_id %></td>
+        <td><%= bible_lesson.tags %></td>
+        <td><%= bible_lesson.lesson %></td>
+        <td><%= link_to 'Show', bible_lesson %></td>
+        <td><%= link_to 'Edit', edit_bible_lesson_path(bible_lesson) %></td>
+        <td><%= link_to 'Destroy', bible_lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bible lesson', new_bible_lesson_path %>

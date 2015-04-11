@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @bible_lesson.title %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @bible_lesson.subject %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @bible_lesson.category_id %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @bible_lesson.author_id %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @bible_lesson.tags %>
+</p>
+
+<p>
+  <strong>Lesson:</strong>
+  <%= @bible_lesson.lesson %>
+</p>
+
+<%= link_to 'Edit', edit_bible_lesson_path(@bible_lesson) %> |
+<%= link_to 'Back', bible_lessons_path %>

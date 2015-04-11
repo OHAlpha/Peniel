@@ -1,49 +1,75 @@
 Rails.application.routes.draw do
 
-<<<<<<< HEAD
-=======
-  get 'developer(/index(.:format))' => 'developers#portal'
-  
-  resources :developers
-  
-  resource :developer do
-    get 'index_table/:table' =>  :index_table
-    get 'clear_table/:table' =>  :clear_table
-    get 'remove_row/:table/:id' =>  :remove_row
+  root 'application#home'
+  get 'about', to: 'application#about'
+  get 'news', to: 'application#news'
+  get 'bible', to: 'application#bible'
+  get 'media', to: 'application#media'
+  get 'resources', to: 'application#resources'
+  get 'contact', to: 'application#contact'
+
+  resources :administrators, only: [ :show, :index ]
+  resource :administrator, only: [ :new, :create, :edit, :update, :destroy ] do
+    root to: :dashboard
+    get 'dashboard'
+  end
+
+  resources :developers, only: [ :show, :index ]
+  resource :developer, only: [ :new, :create, :edit, :update, :destroy ] do
+    root to: :dashboard
+    get 'dashboard'
+    get 'apply'
+    get 'request', on: :new
+    get 'index_table/:table', to: :index_table, as: :index_table
+    get 'clear_table/:table', to: :clear_table, as: :clear_table
+    get 'remove_row/:table/:id', to: :remove_row, as: :remove_row
     get 'reset_titles'
     get 'reset_suffixes'
     get 'add_admin'
+    get 'setup_env'
+    get 'show_session'
   end
 
->>>>>>> v0_architecture
-  resources :roles
+  resources :maintainers, only: [ :show, :index ]
+  resource :maintainer, only: [ :new, :create, :edit, :update, :destroy ] do
+    root to: :dashboard
+    get 'dashboard'
+  end
 
-  resources :members
-
-  resources :organizations
-
-  resources :parties
-
-  resources :departments
-
-  resources :profiles
-
-  resources :addresses
-
-  resources :contacts
-
-  resources :users
-<<<<<<< HEAD
-=======
-  
-  resource :user do
+  resources :users, only: [ :show, :index ]
+  resource :user, only: [ :new, :create, :edit, :update, :destroy ] do
+    root to: :dashboard
+    get 'dashboard'
     get 'login'
     post 'signin'
     get 'logout'
-    get 'signup'
+    get 'signup', on: :new
   end
->>>>>>> v0_architecture
+  
+  concern :likeable do
+    resources :likes, except: [ :show, :edit, :update ]
+  end
+  
+  concern :commentable do
+    resources :comments, except: [ :show, :edit, :update ], concerns: :likeable
+  end
+  
+  resources :news_categories
+  resources :news_articles, concerns: [ :commentable, :likeable ] do
+    collection do
+      get 'search'
+      post 'query'
+    end
+  end
 
-  root 'application#home'
+  resources :bible_lesson_categories
+  resources :bible_lessons, concerns: [ :commentable, :likeable ] do
+    collection do
+      get 'search'
+      post 'query'
+    end
+  end
+
+  resources :roles, :members, :organizations, :parties, :departments, :profiles, :addresses, :contacts
 
 end

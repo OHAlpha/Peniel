@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# Session notes
+# Branch: homepage
+#
+#   .
+
+apl=application
+con=controller
+jscs=javascripts
+stss=stylesheets
+
+ecss=.css.erb
+ehtm=.html.erb
+ejvs=.js.erb
+
+a=app
+  as=$a/assets
+    jss=$as/$jscs
+    css=$as/$stss
+  cts=$a/${con}s
+  mds=$a/models
+  vs=$a/views
+    lyv=$vs/layouts
+    adv=$vs/administrators
+    apv=$vs/$apl
+    dvv=$vs/developers
+    mnv=$vs/maintainers
+    usv=$vs/users
+cf=config
+  izs=$cf/initializers
+db=db
+  sma=$db/schema.rb
+  mgs=$db/migrate
+
+if [ $# -gt 0 ]
+then
+  for c
+  do
+    case $c in
+      -nu) # nautilus
+        nautilus . &
+        ;;
+      -ss) # session
+        gedit --new-window session &
+        ;;
+      -rt) # routes
+        gedit --new-window $cf/routes.rb $sma &
+        ;;
+      -ap) # application
+        gedit --new-window $izs/assets.rb $css/$apl.scss $css/goyim$ecss $lyv/$apl$ehtm $apv/*$ehtm &
+        ;;
+      -us) # users
+        gedit --new-window $css/users.scss $lyv/users$ehtm $usv/*$ehtm &
+        ;;
+      -mn) # maintainers
+        gedit --new-window $css/maintainers.scss $lyv/maintainers$ehtm $mnv/*$ehtm &
+        ;;
+      -dv) # developers
+        gedit --new-window $css/developers.scss $lyv/developers$ehtm $dvv/*$ehtm &
+        ;;
+      -ad) # admins
+        gedit --new-window $css/administrators.scss $lyv/administrators$ehtm $adv/*$ehtm &
+        ;;
+      -ct) # controllers
+        gedit --new-window $cts/*_$con.rb &
+        ;;
+      -md) # models
+        gedit --new-window $mds/*.rb &
+        ;;
+      -mg) # migrations
+        gedit --new-window $mgs/*.rb &
+        ;;
+      *)
+        ;;
+    esac
+  done
+else
+  session -nu -ss -rt -ap -us -mn -dv -ad -ct -md -mg
+fi

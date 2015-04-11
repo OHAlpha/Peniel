@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150404153104) do
-=======
-ActiveRecord::Schema.define(version: 20150405194145) do
->>>>>>> v0_architecture
+ActiveRecord::Schema.define(version: 20150410184235) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer  "house_number", null: false
@@ -29,6 +25,32 @@ ActiveRecord::Schema.define(version: 20150405194145) do
     t.string   "zip_ext"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "administrators", force: :cascade do |t|
+    t.integer  "member_id"
+    t.text     "description"
+    t.integer  "permissions"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "bible_lesson_categories", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "bible_lessons", force: :cascade do |t|
+    t.string   "title"
+    t.string   "subject"
+    t.integer  "category_id"
+    t.integer  "author_id"
+    t.text     "tags"
+    t.text     "lesson"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -60,6 +82,14 @@ ActiveRecord::Schema.define(version: 20150405194145) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "maintainers", force: :cascade do |t|
+    t.integer  "member_id"
+    t.text     "description"
+    t.integer  "permissions"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "members", force: :cascade do |t|
     t.integer  "person_id",   null: false
     t.date     "since"
@@ -69,6 +99,33 @@ ActiveRecord::Schema.define(version: 20150405194145) do
   end
 
   add_index "members", ["person_id"], name: "index_members_on_person_id", unique: true
+
+  create_table "news_article_user_tags", force: :cascade do |t|
+    t.integer  "article_id"
+    t.integer  "user_id"
+    t.integer  "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "news_articles", force: :cascade do |t|
+    t.string   "title"
+    t.string   "subject"
+    t.integer  "category_id"
+    t.integer  "author_id"
+    t.date     "date"
+    t.text     "tags"
+    t.text     "article"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "news_categories", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name",         null: false
@@ -157,24 +214,6 @@ ActiveRecord::Schema.define(version: 20150405194145) do
   end
 
   create_table "users", force: :cascade do |t|
-<<<<<<< HEAD
-    t.integer  "person_id",   null: false
-    t.string   "unom",        null: false
-    t.string   "email",       null: false
-    t.string   "passhash"
-    t.string   "salt"
-    t.integer  "name_t"
-    t.string   "name_f",      null: false
-    t.string   "name_m"
-    t.string   "name_l",      null: false
-    t.integer  "name_s"
-    t.integer  "status",      null: false
-    t.integer  "contact_id"
-    t.date     "birthdate"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "permissions"
-=======
     t.integer  "person_id",     null: false
     t.string   "unom",          null: false
     t.string   "email",         null: false
@@ -189,8 +228,8 @@ ActiveRecord::Schema.define(version: 20150405194145) do
     t.date     "birthdate"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "permissions"
     t.string   "salt_passhash"
->>>>>>> v0_architecture
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

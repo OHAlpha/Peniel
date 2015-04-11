@@ -1,0 +1,2 @@
+module BibleLessonCategoriesHelper
+end
