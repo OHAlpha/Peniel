@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -gt 1 ]
+then
+  rails server -b ${1} -p ${2}
+elif [ $# -gt 0 ]
+then
+  rails server -b localhost -p ${1}
+else
+  rails server -b localhost -p 3000
+fi
