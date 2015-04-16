@@ -1,56 +1,56 @@
 Rails.application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  
+  concern :tagged do
+    resources :tags, only: [ :index ]
+  end
+  
+  concern :taggable do
+    resources :tags, except: [ :show, :edit, :update ]
+  end
+  
+  concern :likeable do
+    resources :likes, except: [ :show, :edit, :update ]
+  end
+  
+  concern :commentable do
+    resources :comments, except: [ :show, :edit, :update ], concerns: :likeable
+  end
+  
+  # visitor and user functionality
+  root 'application#home'
+  get 'about', to: 'application#about'
+  scope module: 'visitor' do
+    resources :bible, :news, :events, :media, :resources, concerns: [ :tagged, :likeable, :commentable ]
+    resources :departments do
+      resources :contacts
+    end
+  end
+  
+  # user and member functionality
+  resource :user, module: 'user'
+  namespace :user do
+    resources :persons
+  end
+  
+  # developer functionality
+  resource :developer, module: 'developer'
+  namespace :developer do
+    resources :visitors, :developers, :members, :maintainers, :adminstrators
+    resources :persons do
+      resources :relationships
+    end
+    resources :users do
+      resources :contacts
+    end
+    resources :relationships, :contacts
+    resources :bible_articles, :news_articles, :events, :images, :sounds, :videos, :resources, concerns: [ :taggable, :likeable, :commentable ]
+    resources :bible_categories, :news_categories, :tags
+  end
+  
+  # maintainer functionality
+  resource :maintainer, module: 'maintainer'
+  
+  # admin functionality
+  resource :admin, module: 'admin'
+  
 end
